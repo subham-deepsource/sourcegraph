@@ -4,6 +4,10 @@ export const STYLES: StylesConfig = {
     clearIndicator: provided => ({
         ...provided,
         padding: '0 0.125rem',
+        borderRadius: 'var(--border-radius)',
+        '&:hover': {
+            background: 'var(--input-light-hover)'
+        },
     }),
     control: (provided, state) => ({
         ...provided,
@@ -24,6 +28,7 @@ export const STYLES: StylesConfig = {
                 ? 'var(--input-focus-box-shadow-invalid)'
                 : 'var(--input-focus-box-shadow)'
             : undefined,
+        cursor: 'pointer',
         '&:hover': {
             borderColor: undefined,
         },
@@ -31,6 +36,10 @@ export const STYLES: StylesConfig = {
     dropdownIndicator: provided => ({
         ...provided,
         padding: '0 0.125rem',
+        borderRadius: 'var(--border-radius)',
+        '&:hover': {
+            background: 'var(--input-light-hover)'
+        }
     }),
     indicatorSeparator: (provided, state) => ({
         ...provided,
@@ -45,21 +54,23 @@ export const STYLES: StylesConfig = {
     menu: provided => ({
         ...provided,
         background: 'var(--dropdown-bg)',
-        padding: '0.25rem 0',
+        padding: 0,
         margin: '0.125rem 0 0',
         dropShadow: 'var(--dropdown-shadow)',
+        // This is to prevent item edges from sticking out of the rounded dropdown container
+        overflow: 'hidden'
     }),
     menuList: provided => ({
         ...provided,
         padding: 0,
     }),
-    multiValueRemove: (provided, state) => ({
+    multiValueRemove: provided => ({
         ...provided,
         backgroundColor: 'transparent',
-        boxShadow: state.isFocused ? 'var(--input-focus-box-shadow)' : undefined,
+        borderRadius: 'var(--border-radius)',
         ':hover': {
             ...provided[':hover'],
-            backgroundColor: 'transparent',
+            backgroundColor: 'var(--input-light-hover)',
             color: undefined,
         },
     }),
