@@ -43,7 +43,7 @@ export const InsightContextMenu: React.FunctionComponent<InsightCardMenuProps> =
         ? `/insights/edit/${insightID}?dashboardId=${dashboard.id}`
         : `/insights/edit/${insightID}`
     const showQuickFix = insight.title.includes('[gofix]')
-    const quickFixUrl = insight.type === InsightType.SearchBased ? `/batch-changes/create?kind=goChecker${insight.series[0]?.name}` : undefined
+    const quickFixUrl = insight.type === InsightType.SearchBased ? `/batch-changes/create?kind=goChecker${insight.series[0]?.name}&title=${insight.title}` : undefined
 
     const withinVirtualDashboard = !!dashboard && isVirtualDashboard(dashboard)
 
