@@ -3,7 +3,7 @@ import { StylesConfig } from 'react-select'
 export const STYLES: StylesConfig = {
     clearIndicator: provided => ({
         ...provided,
-        padding: '0 0.125rem',
+        padding: '0.125rem 0',
         borderRadius: 'var(--border-radius)',
         '&:hover': {
             background: 'var(--input-light-hover)'
@@ -35,7 +35,7 @@ export const STYLES: StylesConfig = {
     }),
     dropdownIndicator: provided => ({
         ...provided,
-        padding: '0 0.125rem',
+        padding: '0.125rem 0',
         borderRadius: 'var(--border-radius)',
         '&:hover': {
             background: 'var(--input-light-hover)'
@@ -64,10 +64,12 @@ export const STYLES: StylesConfig = {
         ...provided,
         padding: 0,
     }),
-    multiValueRemove: provided => ({
+    multiValueRemove: (provided, state) => ({
         ...provided,
-        backgroundColor: 'transparent',
-        borderRadius: 'var(--border-radius)',
+        padding: '4px',
+        marginLeft: '0.25rem',
+        borderRadius: '0 var(--border-radius) var(--border-radius) 0',
+        background: state.isFocused ? 'var(--input-light-hover)' : undefined,
         ':hover': {
             ...provided[':hover'],
             backgroundColor: 'var(--input-light-hover)',
