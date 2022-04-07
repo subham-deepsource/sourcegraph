@@ -1,7 +1,16 @@
 package codeintel
 
-import "github.com/sourcegraph/sourcegraph/internal/codeintel/dependencies"
+import (
+	"github.com/sourcegraph/sourcegraph/internal/codeintel/autoindexing"
+	"github.com/sourcegraph/sourcegraph/internal/codeintel/dependencies"
+)
 
-type DependencyService dependencies.Service
+type (
+	AutoIndexingService autoindexing.Service
+	DependencyService   dependencies.Service
+)
 
-var GetDependenciesService = dependencies.GetService
+var (
+	GetAutoindexingService = autoindexing.GetService
+	GetDependenciesService = dependencies.GetService
+)
