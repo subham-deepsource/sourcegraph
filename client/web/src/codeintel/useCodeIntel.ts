@@ -160,6 +160,10 @@ export const useCodeIntel = ({
         commit: variables.commit,
         path: variables.path,
         searchToken,
+        position: {
+            line: variables.line,
+            character: variables.character,
+        },
         fileContent,
         spec,
         isFork,
