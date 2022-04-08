@@ -11,4 +11,6 @@ export const MultiValueLabel = <OptionValue extends unknown = unknown>({
     innerProps: _innerProps,
     selectProps: _selectProps,
     ...props
-}: MultiValueGenericProps<MultiSelectOption<OptionValue>, true>): ReactElement => <span className={styles.multiValueLabel} {...props} />
+}: MultiValueGenericProps<MultiSelectOption<OptionValue>, true>): ReactElement => (
+    <span className={styles.multiValueLabel} {...props} />
+)

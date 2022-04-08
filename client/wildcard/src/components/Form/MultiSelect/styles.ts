@@ -6,7 +6,7 @@ export const STYLES: StylesConfig = {
         padding: '0.125rem 0',
         borderRadius: 'var(--border-radius)',
         '&:hover': {
-            background: 'var(--input-light-hover)'
+            background: 'var(--input-light-hover)',
         },
     }),
     control: (provided, state) => ({
@@ -38,8 +38,8 @@ export const STYLES: StylesConfig = {
         padding: '0.125rem 0',
         borderRadius: 'var(--border-radius)',
         '&:hover': {
-            background: 'var(--input-light-hover)'
-        }
+            background: 'var(--input-light-hover)',
+        },
     }),
     indicatorSeparator: (provided, state) => ({
         ...provided,
@@ -58,7 +58,7 @@ export const STYLES: StylesConfig = {
         margin: '0.125rem 0 0',
         dropShadow: 'var(--dropdown-shadow)',
         // This is to prevent item edges from sticking out of the rounded dropdown container
-        overflow: 'hidden'
+        overflow: 'hidden',
     }),
     menuList: provided => ({
         ...provided,
