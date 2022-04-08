@@ -48,6 +48,21 @@ const BaseSelect = (props: Partial<Pick<MultiSelectProps, 'isValid' | 'isDisable
     )
 }
 
+const SelectWithValues = () => {
+    const [selectedOptions, setSelectedOptions] = useState<MultiSelectState<OptionValue>>([OPTIONS[5], OPTIONS[1]])
+
+    return (
+        <MultiSelect
+            options={OPTIONS}
+            defaultValue={selectedOptions}
+            onChange={setSelectedOptions}
+            message="I am a message"
+            label="Select your favorite ice cream flavors."
+            aria-label="Select your favorite ice cream flavors."
+        />
+    )
+}
+
 export const MultiSelectExamples: Story = () => (
     <>
         <h1>Multi Select</h1>
@@ -67,6 +82,13 @@ export const MultiSelectExamples: Story = () => (
             <div>
                 <h2>Disabled</h2>
                 <BaseSelect isDisabled={true} />
+            </div>
+        </Grid>
+
+        <h2>Pre-selected values</h2>
+        <Grid columnCount={4}>
+            <div>
+                <SelectWithValues />
             </div>
         </Grid>
     </>
