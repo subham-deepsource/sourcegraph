@@ -54,7 +54,13 @@
 
 .multi-value-container {
     display: flex;
+    max-width: 100%;
     align-items: center;
     padding: 0 0 0 0.5rem;
     margin: 0.125rem;
+}
+
+.multi-value-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
