@@ -45,6 +45,27 @@ func TestSubRepoPermsPermissions(t *testing.T) {
 			want: Read,
 		},
 		{
+			name:   "Directory no trailing slash",
+			userID: 1,
+			content: RepoContent{
+				Repo: "sample",
+				Path: "app",
+			},
+			clientFn: func() (*SubRepoPermsClient, error) {
+				getter := NewMockSubRepoPermissionsGetter()
+				getter.GetByUserFunc.SetDefaultHook(func(ctx context.Context, i int32) (map[api.RepoName]SubRepoPermissions, error) {
+					return map[api.RepoName]SubRepoPermissions{
+						"sample": {
+							PathIncludes: []string{"**"},
+							PathExcludes: []string{"app/**"},
+						},
+					}, nil
+				})
+				return NewSubRepoPermsClient(getter)
+			},
+			want: None,
+		},
+		{
 			name:   "No rules",
 			userID: 1,
 			content: RepoContent{
