@@ -143,29 +143,7 @@ local infer_typescript_job = function(api, path, should_infer_config)
         },
 
         generate = function(paths, api, content_by_path)
-            print(paths)
-
-            api:callback(sg.NewPathRecognizer{
-                generate = function(paths, api)
-                    api:callback(sg.NewPathRecognizer{
-                        generate = function(paths, api)
-                            api:callback(sg.NewPathRecognizer{
-                                generate = function(paths, api)
-                                    api:callback(sg.NewPathRecognizer{
-                                        generate = function(paths, api)
-                                            print("foo 123")
-                                        end,
-                                    })
-                                end,
-                            })
-                        end,
-                    })
-                end,
-            })
-
-            -- for k, v in pairs(content_by_path) do
-            --     print(k, v)
-            -- end
+            -- TODO
         end,
     })
 end
