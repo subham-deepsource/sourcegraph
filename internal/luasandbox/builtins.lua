@@ -96,10 +96,22 @@ local java_recognizer = sg.NewPathRecognizer {
 		sg.extensionPattern("kt"),
 	},
 
-	generate = function()
-		-- TODO
-		print('java')
-		return {}
+	generate = function(paths, api)
+        api:callback(sg.NewPathRecognizer {
+            patterns = {
+                sg.literalPatern("lsif-java.json"),
+            },
+
+            generate = function(paths)
+                return {
+                    indexer = "sourcegraph/lsif-java",
+                    indexer_args = { "lsif-java index --build-tool=lsif" },
+                    outfile = "dump.lsif",
+                    root = "",
+                    steps = {},
+                }
+            end
+        })
 	end,
 }
 
@@ -113,9 +125,49 @@ end
 local typescript_image = "sourcegraph/lsif-typescript:autoindex"
 local typescript_nmusl_command = "N_NODE_MIRROR=https://unofficial-builds.nodejs.org/download/release n --arch x64-musl auto"
 
-
-
 local infer_typescript_job = function(api, path, should_infer_config)
+    local root = sg.dirname(path)
+    local ancestor_dirs = sg.ancestors(root)
+
+    api:callback(sg.NewPathRecognizer {
+        patterns = {
+            sg.basenamePattern("yarn.lock"),
+            sg.basenamePattern("package.json"),
+            sg.basenamePattern(".nvmrc"),
+            sg.basenamePattern(".node-version"),
+            sg.basenamePattern(".n-node-version"),
+        },
+
+        patterns_for_content = {
+            sg.basenamePattern("learna.json"),
+        },
+
+        generate = function(paths, api, content_by_path)
+            print(paths)
+
+            api:callback(sg.NewPathRecognizer{
+                generate = function(paths, api)
+                    api:callback(sg.NewPathRecognizer{
+                        generate = function(paths, api)
+                            api:callback(sg.NewPathRecognizer{
+                                generate = function(paths, api)
+                                    api:callback(sg.NewPathRecognizer{
+                                        generate = function(paths, api)
+                                            print("foo 123")
+                                        end,
+                                    })
+                                end,
+                            })
+                        end,
+                    })
+                end,
+            })
+
+            -- for k, v in pairs(content_by_path) do
+            --     print(k, v)
+            -- end
+        end,
+    })
 end
 
 local typescript_recognizer = sg.NewPathRecognizer {
@@ -124,7 +176,7 @@ local typescript_recognizer = sg.NewPathRecognizer {
 		sg.exclude(typescript_exclude_paths),
 	},
 
-	generate = function(paths)
+	generate = function(paths, api)
         for i = 1, #paths do
             path = paths[i]
             coroutine.yield(infer_typescript_job(api, path, true))
@@ -138,7 +190,7 @@ local javascript_recognizer = sg.NewPathRecognizer {
 		sg.exclude(typescript_exclude_paths),
 	},
 
-	generate = function()
+	generate = function(path, api)
 		return infer_typescript_job(api, "", false)
 	end,
 }
